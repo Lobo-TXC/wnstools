@@ -13,3 +13,11 @@ else
     echo "Iniciando instalacion de nmap..."
     sudo apt -y install nmap
 fi
+
+echo 'Instalando comandos necesarios...'
+
+sudo mv Scripts/* /usr/bin
+
+echo 'Definiendo los comandos...'
+
+alias wnscan="/usr/bin/wnscan"

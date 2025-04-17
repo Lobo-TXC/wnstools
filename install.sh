@@ -16,9 +16,9 @@ fi
 
 echo 'Instalando comandos necesarios...'
 
-sudo cp Scripts/* /usr/bin
+ cp Scripts/* /usr/local/bin
 
 echo 'Definiendo los comandos...'
 
-alias wnscan="/usr/bin/wnscan"
-sudo chmod +x /usr/bin/wnscan
+alias wnscan="/usr/local/bin/wnscan"
+sudo chmod +x /usr/local/bin/wnscan

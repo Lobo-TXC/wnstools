@@ -23,7 +23,7 @@ while True:
     else: print('Opcion no valida \n')  
 
 if file_bool==True:
-    scan.extend(file_output)
+    scan.extend(output_file)
     subprocess.call(scan)
 
     print('\n ---»Se creo un archivo con el nombre Wnscan-Out')

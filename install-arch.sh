@@ -16,7 +16,7 @@ fi
 
 echo 'Instalando comandos necesarios...'
 
- cp Scripts/* /usr/local/bin
+cp Scripts/* /usr/local/bin
 
 echo 'Definiendo los comandos...'
 

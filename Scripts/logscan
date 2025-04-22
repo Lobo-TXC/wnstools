@@ -1,3 +1,48 @@
 #!/usr/bin/env python3
 
-import  
+#Se importan las librerias necesarias
+import sys
+import os
+import argparse
+import re
+
+#Se define la funcion encargada de realizar el escaneo, a la cual se le pasa un archivo y un nombre para el mismo
+
+def log_analize(log_file, output_file):
+    if not os.path.isfile(log_file):
+        print(f"Error: El archivo '{log_file}' no existe")
+        sys.exit(1) #Si no existe, se emite un mensaje de error, si lo hay devuelve 1 sino por defecto es 0
+    
+    #Se define el patron a buscar dentro del log
+    pattern = r'^(?P<date>\w+\s+\d+\s+\d+:\d+:\d+).* (Failed|Accepted) password for (invalid user )?(?P<user>\w+) from (?P<ip>[0-9.]+) port (?P<port>\d+)'
+
+#Se define un contexto de ejecucion para el archivo log, asegurando que una vez finalizada la tarea se cierre el proceso
+    with open(log_file, 'r', encoding='UTF-8') as archivo, open(output_file, 'w',encoding = 'UTF_8') as out:
+        
+        #Este bucle es el encargado de comparar y filtrar resultados relevantes
+        for line in archivo:
+            if 'Failed password' in line or 'Accepted password' in line:
+                match = re.search(pattern, line) #Aqui se comparan coincidencias gracias a expresiones regulares (libreria)
+                if match:
+                    datos = match.groupdict() #Se vuelcan los datos a un diccionario donde podemos acceder a los necesarios
+                    estado = ' Fallido' if 'Failed' in line else ' Exitoso'
+                    registro = f"{datos['date']}, Usuario: {datos['user']}, Ip: {datos['ip']}, Puerto: {datos['port']}{estado}\n"
+                    out.write(registro) 
+                    '''En el estado se registro la coincidencia en el texto para determinar si el login fue exitoso o no
+                    el registro llama a los grupos nombrados para formatear y escribir la informacion de manera mas ordenada y
+                    finalmentes escribirlos en la variable out que representa el archivo de salida
+                    '''          
+    print(f"[+] Analisis completado, resultados guardados en {output_file}")
+    
+    
+def main():
+    parser = argparse.ArgumentParser(description="Analiza un log y guarda los resultados")
+    parser.add_argument("archivo", help="ruta del log a analizar")
+    parser.add_argument("-o", "--output", default="log escaneado.txt")
+    args = parser.parse_args()
+        
+    log_analize(args.archivo, args.output)
+        
+        
+if __name__== "__main__":
+    main()

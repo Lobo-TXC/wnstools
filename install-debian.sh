@@ -18,7 +18,9 @@ echo 'Instalando comandos necesarios...'
 
 sudo cp Scripts/* /usr/local/bin
 
-echo 'Definiendo los comandos...'
+echo 'Haciendo ejecutables los comandos...'
 
-alias wnscan="/usr/local/bin/wnscan"
+
 sudo chmod +x /usr/local/bin/wnscan
+
+sudo chmod +x /usr/local/bin/logscan

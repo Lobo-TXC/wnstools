@@ -26,5 +26,5 @@ sudo chmod +x /usr/local/bin/wnscan
 
 sudo chmod +x /usr/local/bin/logscan
 
-echo 'alias wnscan=/usr/local/bin/wnscan' >> ~/.zshrc
-echo 'alias wnlogs=/usr/local/bin/logscan' >> ~/.zshrc
+echo "alias wnscan='/usr/local/bin/wnscan'" >> ~/.zshrc
+echo "alias wnlogs='/usr/local/bin/logscan'" >> ~/.zshrc
